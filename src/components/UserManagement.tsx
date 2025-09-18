@@ -13,10 +13,9 @@ export function UserManagement({
   const resetForm = () => setForm({ ...defaultForm });
 
   const handleSubmit = (e: Event) => {
-    e.preventDefault();
     console.log("User data to be submitted:", form);
-    alert("User created successfully!");
     resetForm();
+    onCreate(form);
     setShowModal(false);
   };
 
