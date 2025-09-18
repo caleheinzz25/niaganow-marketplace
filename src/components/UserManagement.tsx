@@ -96,18 +96,18 @@ export function UserManagement({
                 >
                   Role
                 </label>
-                <select
-                  id="role"
-                  required
-                  value={form.role}
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
-                  onChange={(e) => setForm("role", e.currentTarget.value)}
-                >
-                  <option value="">Select Role</option>
-                  <option value="ADMIN">Admin</option>
-                  <option value="USER">User</option>
-                  <option value="MANAGER">Manager</option>
-                </select>
+                  <select
+                    id="role"
+                    required
+                    value={form.role}
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
+                    onChange={(e) => setForm("role", e.currentTarget.value)}
+                  >
+                    <option value="" disabled>Select Role</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="USER">User</option>
+                    <option value="MANAGER">Manager</option>
+                  </select>
               </div>
 
               <div class="flex items-center mt-2">
