@@ -273,9 +273,7 @@ function RouteComponent() {
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       SKU
                     </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Store
-                    </th>
+
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Price
                     </th>
@@ -316,9 +314,7 @@ function RouteComponent() {
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {item.productSku}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {order.store.storeName}
-                        </td>
+
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {formatToRupiah(item.price)}
                         </td>
