@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Checkout Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style type="text/css">
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Credit card styling */
+        .card-front, .card-back {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .card-container.flipped .card-front {
+            transform: rotateY(180deg);
+        }
+        
+        .card-container.flipped .card-back {
+            transform: rotateY(0deg);
+        }
+        
+        /* Input focus styles */
+        .input-focus:focus {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Custom radio buttons */
+        .custom-radio:checked + .radio-label {
+            border-color: #3b82f6;
+            background-color: #ebf5ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <div class="min-h-screen flex flex-col lg:flex-row">
+        <!-- Left Column - Order Summary -->
+        <div class="lg:w-2/5 p-6 lg:p-10 bg-white shadow-lg animate-fade-in delay-1">
+            <div class="flex items-center mb-8">
+                <a href="#" class="text-blue-500 hover:text-blue-700 mr-4">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="text-2xl font-bold text-gray-800">Checkout</h1>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">1</span>
+                    Shipping Address
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="First Name" class="input-focus p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="text" placeholder="Last Name" class="input-focus p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <input type="text" placeholder="Address Line 1" class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" placeholder="Address Line 2 (Optional)" class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="City" class="input-focus p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="text" placeholder="Postal Code" class="input-focus p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <select class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                        <option value="" disabled selected>Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                    </select>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="save-address" class="mr-2">
+                        <label for="save-address" class="text-gray-600">Save this address for next time</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-8 animate-fade-in delay-2">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">2</span>
+                    Delivery Options
+                </h2>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input type="radio" name="delivery" id="standard" class="hidden custom-radio" checked>
+                        <label for="standard" class="radio-label flex items-center p-4 border border-gray-300 rounded-md cursor-pointer w-full">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex-shrink-0 relative">
+                                <div class="w-3 h-3 rounded-full bg-blue-500 absolute inset-0 m-auto" style="display: none;"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium text-gray-800">Standard Shipping</div>
+                                <div class="text-sm text-gray-500">Delivery in 5-7 business days</div>
+                            </div>
+                            <div class="ml-auto font-medium">$5.99</div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="radio" name="delivery" id="express" class="hidden custom-radio">
+                        <label for="express" class="radio-label flex items-center p-4 border border-gray-300 rounded-md cursor-pointer w-full">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex-shrink-0 relative">
+                                <div class="w-3 h-3 rounded-full bg-blue-500 absolute inset-0 m-auto" style="display: none;"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium text-gray-800">Express Shipping</div>
+                                <div class="text-sm text-gray-500">Delivery in 2-3 business days</div>
+                            </div>
+                            <div class="ml-auto font-medium">$12.99</div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="radio" name="delivery" id="overnight" class="hidden custom-radio">
+                        <label for="overnight" class="radio-label flex items-center p-4 border border-gray-300 rounded-md cursor-pointer w-full">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex-shrink-0 relative">
+                                <div class="w-3 h-3 rounded-full bg-blue-500 absolute inset-0 m-auto" style="display: none;"></div>
+                            </div>
+                            <div>
+                                <div class="font-medium text-gray-800">Overnight Shipping</div>
+                                <div class="text-sm text-gray-500">Delivery by tomorrow</div>
+                            </div>
+                            <div class="ml-auto font-medium">$24.99</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Payment & Order Summary -->
+        <div class="lg:w-3/5 bg-gray-100 p-6 lg:p-10 animate-fade-in delay-3">
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">3</span>
+                    Payment Method
+                </h2>
+                
+                <!-- Payment Method Tabs -->
+                <div class="mb-6">
+                    <div class="flex border-b border-gray-300">
+                        <button class="tab-button px-4 py-2 border-b-2 border-blue-500 text-blue-600 font-medium">Credit Card</button>
+                        <button class="tab-button px-4 py-2 text-gray-600 font-medium">PayPal</button>
+                        <button class="tab-button px-4 py-2 text-gray-600 font-medium">Apple Pay</button>
+                    </div>
+                </div>
+                
+                <!-- Credit Card Form -->
+                <div class="payment-tab active">
+                    <div class="mb-6">
+                        <div class="card-container relative h-48 mb-6 mx-auto max-w-md">
+                            <div class="card-front absolute w-full h-full bg-gradient-to-br from-blue-600 to-blue-400 rounded-xl text-white p-6 shadow-lg">
+                                <div class="flex justify-between items-start mb-8">
+                                    <div class="text-lg font-medium">Credit Card</div>
+                                    <div class="text-2xl font-bold">VISA</div>
+                                </div>
+                                <div class="mb-6">
+                                    <div class="text-xs text-blue-100 mb-1">CARD NUMBER</div>
+                                    <div class="text-xl font-mono tracking-wider">•••• •••• •••• 4242</div>
+                                </div>
+                                <div class="flex justify-between">
+                                    <div>
+                                        <div class="text-xs text-blue-100 mb-1">CARD HOLDER</div>
+                                        <div>John Smith</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-blue-100 mb-1">EXPIRES</div>
+                                        <div>12/25</div>
+                                    </div>
+                                </div>
+                                <button id="flip-card" class="absolute top-2 right-2 text-blue-100 hover:text-white">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="card-back absolute w-full h-full bg-gradient-to-br from-blue-800 to-blue-600 rounded-xl text-white p-6 shadow-lg">
+                                <div class="h-10 bg-black mt-4 mb-8"></div>
+                                <div class="bg-gray-200 h-8 rounded flex items-center px-3">
+                                    <div class="h-5 w-full bg-gray-400 rounded flex items-center justify-end">
+                                        <span class="text-black text-xs font-bold mr-2">CVV</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <div class="text-xs text-blue-200">VISA</div>
+                                    <button id="flip-card-back" class="text-blue-200 hover:text-white">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <form class="max-w-md mx-auto">
+                            <div class="mb-4">
+                                <label for="card-number" class="block text-gray-700 mb-2">Card Number</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="card-name" class="block text-gray-700 mb-2">Name on Card</label>
+                                <input type="text" id="card-name" placeholder="John Smith" class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="expiry" class="block text-gray-700 mb-2">Expiry Date</label>
+                                    <input type="text" id="expiry" placeholder="MM/YY" class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label for="cvv" class="block text-gray-700 mb-2">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" class="input-focus w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="flex items-center mb-6">
+                                <input type="checkbox" id="save-card" class="mr-2">
+                                <label for="save-card" class="text-gray-600">Save this card for future purchases</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- PayPal (hidden by default) -->
+                <div class="payment-tab hidden">
+                    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-blue-500 mb-4">
+                            <i class="fab fa-cc-paypal"></i>
+                        </div>
+                        <p class="mb-6 text-gray-600">You'll be redirected to PayPal to complete your payment securely.</p>
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-md font-medium transition duration-200">
+                            Proceed to PayPal
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Apple Pay (hidden by default) -->
+                <div class="payment-tab hidden">
+                    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-gray-900 mb-4">
+                            <i class="fab fa-apple-pay"></i>
+                        </div>
+                        <p class="mb-6 text-gray-600">Complete your payment quickly and securely with Apple Pay.</p>
+                        <button class="w-full bg-black hover:bg-gray-800 text-white py-3 px-4 rounded-md font-medium transition duration-200">
+                            Pay with Apple Pay
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="bg-white rounded-lg shadow-md p-6 animate-fade-in delay-4">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Order Summary</h2>
+                
+                <div class="space-y-4 mb-6 max-h-60 overflow-y-auto">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-200 rounded-md flex-shrink-0 overflow-hidden">
+                            <img src="https://via.placeholder.com/64" alt="Product" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-medium text-gray-800">Premium Headphones</div>
+                            <div class="text-sm text-gray-500">Color: Black</div>
+                        </div>
+                        <div class="ml-auto font-medium">$199.00</div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-200 rounded-md flex-shrink-0 overflow-hidden">
+                            <img src="https://via.placeholder.com/64" alt="Product" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-medium text-gray-800">Wireless Charger</div>
+                            <div class="text-sm text-gray-500">Fast charging</div>
+                        </div>
+                        <div class="ml-auto font-medium">$29.99</div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 pt-4 flex justify-between">
+                        <span>Subtotal</span>
+                        <span>$228.99</span>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <span>Shipping</span>
+                        <span>$5.99</span>
+                    </div>
+                    
+                    <div class="flex justify-between font-medium">
+                        <span>Tax</span>
+                        <span>$23.45</span>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4 mb-6 flex justify-between text-lg font-bold">
+                    <span>Total</span>
+                    <span>$258.43</span>
+                </div>
+                
+                <button id="place-order" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-md font-bold text-lg transition duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    Place Order
+                </button>
+                
+                <div class="text-xs text-gray-500 mt-4 text-center">
+                    By placing your order, you agree to our <a href="#" class="text-blue-500 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>.
+                </div>
+            </div>
+            
+            <div class="mt-6 flex items-center justify-center space-x-4">
+                <a href="#" class="text-gray-500 hover:text-gray-700">
+                    <i class="fab fa-cc-visa text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-gray-700">
+                    <i class="fab fa-cc-mastercard text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-gray-700">
+                    <i class="fab fa-cc-amex text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-gray-700">
+                    <i class="fab fa-cc-discover text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab-button');
+            const paymentTabs = document.querySelectorAll('.payment-tab');
+            
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    // Remove active classes from all tabs and content
+                    tabs.forEach(t => {
+                        t.classList.remove('border-b-2', 'border-blue-500', 'text-blue-600');
+                        t.classList.add('text-gray-600');
+                    });
+                    paymentTabs.forEach(t => t.classList.add('hidden'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('border-b-2', 'border-blue-500', 'text-blue-600');
+                    tab.classList.remove('text-gray-600');
+                    
+                    // Show corresponding content
+                    paymentTabs[index].classList.remove('hidden');
+                });
+            });
+            
+            // Radio button selection
+            const radios = document.querySelectorAll('.custom-radio');
+            radios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const allLabels = document.querySelectorAll('.radio-label');
+                    allLabels.forEach(label => {
+                        label.querySelector('div > div').style.display = 'none';
+                    });
+                    
+                    if (this.checked) {
+                        const selectedLabel = document.querySelector(`label[for="${this.id}"]`);
+                        selectedLabel.querySelector('div > div').style.display = 'block';
+                    }
+                });
+                
+                // Initialize first radio as checked
+                if (radio.checked) {
+                    const selectedLabel = document.querySelector(`label[for="${radio.id}"]`);
+                    selectedLabel.querySelector('div > div').style.display = 'block';
+                }
+            });
+            
+            // Credit card flipping
+            const cardContainer = document.querySelector('.card-container');
+            const flipButtons = document.querySelectorAll('#flip-card, #flip-card-back');
+            
+            flipButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    cardContainer.classList.toggle('flipped');
+                });
+            });
+            
+            // Dynamic card number formatting
+            const cardNumberInput = document.getElementById('card-number');
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = this.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                let matches = value.match(/\d{4,16}/g);
+                let match = matches && matches[0] || '';
+                let parts = [];
+
+                for (let i=0, len=match.length; i<len; i+=4) {
+                    parts.push(match.substring(i, i+4));
+                }
+
+                if (parts.length) {
+                    this.value = parts.join(' ');
+                } else {
+                    this.value = value;
+                }
+            });
+            
+            // Expiry date formatting
+            document.getElementById('expiry').addEventListener('input', function(e) {
+                this.value = this.value
+                    .replace(/^([1-9]\/|[2-9])$/g, '0$1/') // 13 > 1/3 to 01/3
+                    .replace(/^(0[1-9]|1[0-2])$/g, '$1/') // 3/ => 03/
+                    .replace(/^([0-1])([3-9])$/g, '0$1/$2') // 13 => 1/3 => 01/3
+                    .replace(/^(0?[1-9]|1[0-2])([0-9]{2})$/g, '$1/$2') // 141 => 01/41
+                    .replace(/^([0]+)\/|[0]+$/g, '0') // 0/ => 0 and 00 => 0
+                    .replace(/[^\d\/]|^[\/]*$/g, '') // To allow only digits and `/`
+                    .replace(/(\/\d)\d*$/g, '$1') // Disallow more than 2 digits at the end
+                ;
+            });
+            
+            // CVV validation
+            document.getElementById('cvv').addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4);
+            });
+            
+            // Place order button
+            document.getElementById('place-order').addEventListener('click', function() {
+                this.textContent = 'Processing...';
+                this.classList.add('opacity-75', 'cursor-not-allowed');
+                
+                // Simulate order processing
+                setTimeout(() => {
+                    window.location.href = 'order-confirmation.html'; // Replace with actual confirmation page
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

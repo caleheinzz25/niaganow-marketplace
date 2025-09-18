@@ -1,0 +1,11 @@
+@theme {
+  /* Color */
+  --color-primary-500: #0abab5;
+  --color-primary-400: #56dfcf;
+  --color-primary-300: #adeed9;
+  --color-base-100: #ffedf3;
+  --color-secondary: #a777e3;
+  --color-primary: #6e8efb;
+  /* shadow */
+  --shadow-all: 0 0 10px rgba(0, 0, 0, 0.2);
+}

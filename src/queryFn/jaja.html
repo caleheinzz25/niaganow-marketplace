@@ -1,0 +1,155 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Price range filter
+    const priceRange = document.getElementById("price-range");
+    const priceValue = document.getElementById("price-value");
+
+    priceRange.addEventListener("input", function () {
+      priceValue.textContent = `Up to $${this.value}`;
+      filterProducts();
+    });
+
+    // Filter checkboxes
+    const filterCheckboxes = document.querySelectorAll(
+      'input[type="checkbox"][data-filter]'
+    );
+    filterCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", filterProducts);
+    });
+
+    // Clear filters button
+    document
+      .getElementById("clear-filters")
+      .addEventListener("click", function () {
+        filterCheckboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+        priceRange.value = 500;
+        priceValue.textContent = `Up to $500`;
+        filterProducts();
+      });
+
+    // View toggle buttons
+    const viewButtons = document.querySelectorAll(".sort-btn[data-view]");
+    viewButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        viewButtons.forEach((btn) => btn.classList.remove("active"));
+        this.classList.add("active");
+        const viewType = this.getAttribute("data-view");
+        document.getElementById("products-grid").className =
+          `grid gap-6 ${viewType === "grid" ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1"}`;
+      });
+    });
+
+    // Sort select
+    document.getElementById("sort-by").addEventListener("change", function () {
+      sortProducts(this.value);
+    });
+
+    // Filter products function
+    function filterProducts() {
+      const maxPrice = parseInt(priceRange.value);
+      const selectedCategories = Array.from(
+        document.querySelectorAll('input[data-filter="category"]:checked')
+      ).map((cb) => cb.value);
+      const selectedRatings = Array.from(
+        document.querySelectorAll('input[data-filter="rating"]:checked')
+      ).map((cb) => parseInt(cb.value));
+      const inStockOnly =
+        document.querySelector('input[data-filter="availability"]:checked') !==
+        null;
+
+      const products = document.querySelectorAll(".product-card");
+      let visibleCount = 0;
+
+      products.forEach((product) => {
+        const price = parseFloat(product.dataset.price);
+        const category = product.dataset.category;
+        const rating = parseFloat(product.dataset.rating);
+        const availability = product.dataset.availability;
+
+        // Check filters
+        const priceMatches = price <= maxPrice;
+        const categoryMatches =
+          selectedCategories.length === 0 ||
+          selectedCategories.includes(category);
+        const ratingMatches =
+          selectedRatings.length === 0 ||
+          selectedRatings.some((minRating) => rating >= minRating);
+        const availabilityMatches = !inStockOnly || availability === "in-stock";
+
+        if (
+          priceMatches &&
+          categoryMatches &&
+          ratingMatches &&
+          availabilityMatches
+        ) {
+          product.style.display = "block";
+          visibleCount++;
+        } else {
+          product.style.display = "none";
+        }
+      });
+
+      document.getElementById("showing-count").textContent = visibleCount;
+    }
+
+    // Sort products function
+    function sortProducts(sortBy) {
+      const productsContainer = document.getElementById("products-grid");
+      const products = Array.from(document.querySelectorAll(".product-card"));
+
+      products.sort((a, b) => {
+        const priceA = parseFloat(a.dataset.price);
+        const priceB = parseFloat(b.dataset.price);
+        const ratingA = parseFloat(a.dataset.rating);
+        const ratingB = parseFloat(b.dataset.rating);
+
+        switch (sortBy) {
+          case "price-low":
+            return priceA - priceB;
+          case "price-high":
+            return priceB - priceA;
+          case "rating":
+            return ratingB - ratingA;
+          case "newest": // Just an example, would need actual date data
+            return 0; // Default order
+          default:
+            return 0; // Featured (default) order
+        }
+      });
+
+      // Re-append sorted products
+      products.forEach((product) => {
+        productsContainer.appendChild(product);
+      });
+    }
+
+    // Add to cart buttons
+    document.querySelectorAll(".add-to-cart").forEach((button) => {
+      button.addEventListener("click", function () {
+        if (!this.disabled) {
+          const productCard = this.closest(".product-card");
+          const productName = productCard.querySelector("h3").textContent;
+          const productPrice = productCard.querySelector(
+            "div.justify-between > span"
+          ).textContent;
+
+          // Animation effect
+          this.innerHTML = '<i class="fas fa-check mr-1"></i> Added';
+          this.classList.remove("bg-blue-600", "hover:bg-blue-700");
+          this.classList.add("bg-green-500", "hover:bg-green-600");
+
+          setTimeout(() => {
+            this.innerHTML = '<i class="fas fa-shopping-cart mr-1"></i> Add';
+            this.classList.remove("bg-green-500", "hover:bg-green-600");
+            this.classList.add("bg-blue-600", "hover:bg-blue-700");
+          }, 2000);
+
+          // In a real app, you would add to cart here
+          console.log(`Added to cart: ${productName} - ${productPrice}`);
+        }
+      });
+    });
+  });
+</script>

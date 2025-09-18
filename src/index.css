@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "./styles/tailwindscustom.css";
+@import "./styles/animation.css";
+@import "./styles/size.css";
+@import "./styles/custom.css";
+
+body {
+  margin: 0;
+  font-family: "Inter";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bg-pattern {
+  background-image: radial-gradient(
+    rgba(59, 130, 246, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 200;
+  src: url(/assets/fonts/Inter/static/Inter_18pt-ExtraLight.ttf);
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  src: url(/assets/fonts/Inter/static/Inter_18pt-Regular.ttf);
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 200;
+  src: url(/assets/fonts/Inter/static/Inter_18pt-Italic.ttf);
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  src: url(/assets/fonts/Inter/static/Inter_18pt-Bold.ttf);
+}

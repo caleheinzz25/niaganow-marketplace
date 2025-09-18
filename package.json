@@ -1,0 +1,29 @@
+{
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/solid-query": "^5.83.0",
+    "@tanstack/solid-query-devtools": "^5.83.0",
+    "@tanstack/solid-router": "^1.128.3",
+    "@tanstack/solid-router-devtools": "^1.128.3",
+    "@types/chart.js": "^4.0.1",
+    "@types/node": "^24.0.14",
+    "axios": "^1.10.0",
+    "chart.js": "^4.5.0",
+    "embla-carousel-solid": "^8.6.0",
+    "marked": "^16.1.1",
+    "solid-js": "^1.9.7",
+    "tailwindcss": "^4.1.11",
+    "vite": "^7.0.5",
+    "vite-plugin-pages": "^0.33.1",
+    "vite-plugin-solid": "^2.11.7"
+  }
+}
