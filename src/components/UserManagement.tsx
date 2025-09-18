@@ -14,7 +14,6 @@ export function UserManagement({
 
   const handleSubmit = (e: Event) => {
     console.log("User data to be submitted:", form);
-    resetForm();
     onCreate(form);
     setShowModal(false);
   };
