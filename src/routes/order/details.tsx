@@ -317,7 +317,7 @@ function RouteComponent() {
                           {item.productSku}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {order.storeName}
+                          {order.store.storeName}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {formatToRupiah(item.price)}
