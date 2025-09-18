@@ -8,7 +8,7 @@ import { UserFormData } from "~/types/user";
 import { User } from "~/types/User";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1/admin",
+  baseURL: "https://niaganow.site/backend/api/v1/admin",
   headers: {
     "Content-Type": "application/json",
   },

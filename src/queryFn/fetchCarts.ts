@@ -39,7 +39,7 @@ interface CartInputDto {
 }
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1/cart",
+  baseURL: "https://niaganow.site/backend/api/v1/cart",
   headers: {
     "Content-Type": "application/json",
   },

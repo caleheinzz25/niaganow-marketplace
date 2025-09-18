@@ -44,7 +44,7 @@ export interface ProfileResponse {
 
 // Konfigurasi axios instance (opsional, agar DRY)
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1/auth",
+  baseURL: "https://niaganow.site/backend/api/v1/auth",
   withCredentials: true, // penting untuk cookie HttpOnly
   headers: {
     "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const api = axios.create({
 });
 
 const api2 = axios.create({
-  baseURL: "http://localhost:8080/api/v1/store",
+  baseURL: "https://niaganow.site/backend/api/v1/store",
   headers: {
     "Content-Type": "application/json",
   },

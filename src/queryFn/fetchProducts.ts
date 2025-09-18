@@ -39,7 +39,7 @@ export async function fetchAllProducts({
   if (categories.length > 0) params.set("category", categories.join(","));
 
   const res = await axios.get(
-    `http://localhost:8080/api/v1/products?${params.toString()}`
+    `https://niaganow.site/backend/api/v1/products?${params.toString()}`
   );
   return res.data;
 }
@@ -61,7 +61,7 @@ export function getProducts(searchParam: shopSearchParams) {
 }
 
 export async function fetchProduct(id: number): Promise<Product> {
-  const res = await axios.get(`http://localhost:8080/api/v1/products/${id}`);
+  const res = await axios.get(`https://niaganow.site/backend/api/v1/products/${id}`);
   return res.data;
 }
 
@@ -79,7 +79,7 @@ export async function fetchProductsByStoreId(
   limit: number
 ): Promise<Product[]> {
   const res = await axios.get(
-    `http://localhost:8080/api/v1/products/limit/${limit}`,
+    `https://niaganow.site/backend/api/v1/products/limit/${limit}`,
     {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -106,7 +106,7 @@ export async function delProductByProductId({
   productId: number;
 }): Promise<SuccessResponse> {
   const res = await axios.delete(
-    `http://localhost:8080/api/v1/products/store/${productId}`,
+    `https://niaganow.site/backend/api/v1/products/store/${productId}`,
     { headers: { Authorization: `Bearer ${authToken}` } }
   );
   return res.data;
@@ -120,7 +120,7 @@ export async function enableProductByProductId({
   productId: number;
 }): Promise<SuccessResponse> {
   const res = await axios.post(
-    `http://localhost:8080/api/v1/products/store/${productId}`,
+    `https://niaganow.site/backend/api/v1/products/store/${productId}`,
     { headers: { Authorization: `Bearer ${authToken}` } }
   );
   return res.data;
@@ -131,7 +131,7 @@ export async function fetchProductByCategory(
   category: string
 ): Promise<ProductsCard> {
   const res = await axios.get(
-    `http://localhost:8080/api/v1/products?category=${category}&limit=${limit}`
+    `https://niaganow.site/backend/api/v1/products?category=${category}&limit=${limit}`
   );
   return res.data;
 }
@@ -154,7 +154,7 @@ export async function postProduct({
   product: Product;
 }): Promise<SuccessResponse> {
   const res = await axios.post(
-    "http://localhost:8080/api/v1/products/add",
+    "https://niaganow.site/backend/api/v1/products/add",
     product,
     {
       headers: {
@@ -173,7 +173,7 @@ export async function putProduct({
   product: Product;
 }): Promise<SuccessResponse> {
   const res = await axios.put(
-    `http://localhost:8080/api/v1/products/update/${product.id}`,
+    `https://niaganow.site/backend/api/v1/products/update/${product.id}`,
     product,
     {
       headers: {
@@ -186,7 +186,7 @@ export async function putProduct({
 
 export async function fetchCategories(): Promise<CategoryCheck[]> {
   const res = await axios.get(
-    "http://localhost:8080/api/v1/products/categories"
+    "https://niaganow.site/backend/api/v1/products/categories"
   );
   const data: string[] = await res.data;
   const result = data.map((item) => ({

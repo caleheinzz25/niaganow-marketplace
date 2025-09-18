@@ -4,7 +4,7 @@ import { CartDto } from "./fetchCarts";
 import { Address } from "~/types/address";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1/payments",
+  baseURL: "https://niaganow.site/backend/api/v1/payments",
   headers: {
     "Content-Type": "application/json",
   },

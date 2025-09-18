@@ -4,14 +4,14 @@ import { CartDto } from "./fetchCarts";
 import { Order, Transaction } from "~/types/order";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1/orders",
+  baseURL: "https://niaganow.site/backend/api/v1/orders",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 const api2 = axios.create({
-  baseURL: "http://localhost:8080/api/v1/transaction",
+  baseURL: "https://niaganow.site/backend/api/v1/transaction",
   headers: {
     "Content-Type": "application/json",
   },

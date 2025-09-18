@@ -3,7 +3,7 @@ import axios from "axios";
 import type { Address } from "~/types/address"; // Sesuaikan path jika berbeda
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1/address",
+  baseURL: "https://niaganow.site/backend/api/v1/address",
   headers: {
     "Content-Type": "application/json",
   },
