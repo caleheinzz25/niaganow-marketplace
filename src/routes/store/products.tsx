@@ -11,6 +11,7 @@ import {
 } from "solid-js";
 import { ActivateConfirmation } from "~/components/button/Activate";
 import { DisableConfirmation } from "~/components/button/Disable";
+import { DeleteConfirmation } from "~/components/button/Delete";
 import { BounceLoading } from "~/components/Loading/BounceLoading";
 import {
   delProductByProductId,
