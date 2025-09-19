@@ -90,7 +90,7 @@ function RouteComponent() {
       });
 
       const res = await fetch(
-        "http://localhost:8080/api/v1/images/upload/images",
+        "https://niaganow.site/backend/api/v1/images/upload/images",
         {
           method: "POST",
           body: formData,
@@ -131,7 +131,7 @@ function RouteComponent() {
       formData.append("file", file);
 
       const res = await fetch(
-        "http://localhost:8080/api/v1/images/upload/thumbnail",
+        "https://niaganow.site/backend/api/v1/images/upload/thumbnail",
         {
           method: "POST",
           body: formData,
